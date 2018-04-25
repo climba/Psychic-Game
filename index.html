@@ -17,125 +17,58 @@
                 
             </div>
             <div class="col-md-6">
-                <p>You chose: <span id="userGuess">0</span></p> 
-                
-                <p>Computer chose: <span id="computerGuess">0</span></p>
-
+                <p>You chose: <span id="userGuess">0</span></p>             
+                <!-- <p>Computer chose: <span id="computerGuess">0</span></p> -->
                 <p>Wins: <span id="wins">0</span></p>
-
-                <p>Losses: <span id="losses">0</span></p>
-            
+                <p>Losses: <span id="losses">0</span></p> 
+                <p>Guesses: <span id="guesses">0</span></p>      
         </div>  
   </div>
-
 </div>
 
 <script>
 
-//  var randomLetter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
+ var randomLetter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
 
- var randomLetter = ["a", "b", "c", "d"];
+//  var randomLetter = ["a", "b", "c", "d"];
 
+        var wins = 0;
+        var losses = 0;
+        var guesses = 10;
+        var computerGuess;
 
- var wins = 0;
- var losses = 0;
+    // Randomly chooses a letter from the randomLetter Array
+    function resetGuess(){
+      computerGuess = randomLetter[Math.floor(Math.random() * randomLetter.length)];
+    }
+    // Set a random letter on page load
+    resetGuess();
 
-
- function arrayLooper(randomLetter) {
-     for (var i = 0; i < randomLetter.length; i ++) {
-         console.log(randomLetter[i]);
-         console.log("------------------")
-     }
- }
-
-arrayLooper(randomLetter)
-
-
-// This function is run everytime the user presses a key.
-document.onkeuup = function(event) {
-
+    // This function is run everytime the user presses a key.
+    document.onkeyup = function(event) {
     // Deterermin wich key was pressed b the user
     var userGuess = event.key;
 
-    // Randomly chooses a letter from the randomLetter Array
-    var computerGuess = randomLetter[Math.floor(Math.random() * randomLetter.length)];
-
-    if(userGuess === "a" && computerGuess === "a") {
+    if(computerGuess === userGuess) {
         wins++;
-        }
-    else if (userGuess === "b" && computerGuess === "b") {
-          wins++
-        }
-    else if (userGuess === "c" && computerGuess === "c") {
-        wins++
-        }
-    else if (userGuess === "c" && computerGuess === "c") {
-        wins++
-        }  
-    // End Winns start losses
-    else {
+        resetGuess();
+    } else {
+        guesses--;
+    }
+
+    if(guesses === 0 ){
         losses++;
-        }
-
-    //     // c's
-    // if(userGuess === "c" && computerGuess === "a") {
-    //     losses++;
-    //     }
-    // else if (userGuess === "c" && computerGuess === "b") {
-    //     losses++
-    //     }
-    // else if (userGuess === "c" && computerGuess === "d") {
-    //     losses++
-    //     }
-    // else if (userGuess === "c" && computerGuess === "e") {
-    //     losses++
-    //     }   
-
-    //     // d's
-    // if(userGuess === "d" && computerGuess === "a") {
-    //     losses++;
-    //     }
-    // else if (userGuess === "d" && computerGuess === "b") {
-    //     losses++
-    //     }
-    // else if (userGuess === "d" && computerGuess === "c") {
-    //     losses++
-    //     }
-    // else if (userGuess === "d" && computerGuess === "e") {
-    //     losses++
-    //     }   
-
-    
-    //     // e's
-    // if(userGuess === "e" && computerGuess === "a") {
-    //     losses++;
-    //     }
-    // else if (userGuess === "e" && computerGuess === "b") {
-    //     losses++
-    //     }
-    // else if (userGuess === "e" && computerGuess === "c") {
-    //     losses++
-    //     }
-    // else (userGuess === "e" && computerGuess === "d") {
-    //     losses++
-    //     }        
-
-
-
-        // if(computerGuess === userGuess) {
-        //     wins++
-        // } else {
-        //     losses++
-        // }
+        guesses = 10;
+        resetGuess();
+    }
 
         document.getElementById("wins").textContent = wins;
         document.getElementById("losses").textContent = losses;
         document.getElementById("userGuess").textContent = userGuess;
-        document.getElementById("computerGuess").textContent = computerGuess;
+        // document.getElementById("computerGuess").textContent = computerGuess;
+        document.getElementById("guesses").textContent = guesses;
 
 }
-
-
 
 </script>
 
